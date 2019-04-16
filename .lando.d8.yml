@@ -1,0 +1,25 @@
+name: nics-drupal8
+recipe: drupal8
+config:
+  webroot: app/web
+services: 
+  appserver:
+    webroot: app/web
+    xdebug: true
+    config: 
+      php: .vscode/php.ini
+  memcache:
+    type: memcached
+    portforward: true
+    mem: 64
+  solr:
+    type: solr
+    portforward: true
+    core: nidirect
+    config:
+      dir: app/web/modules/contrib/search_api_solr/solr-conf/7.x/
+  mail:
+    type: mailhog
+    portforward: true
+    hogfrom:
+      - appserver
